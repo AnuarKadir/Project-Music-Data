@@ -1,8 +1,28 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <script type="module" src="script.mjs"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
   </head>
   <body>
+    <header>
+      <h1>Music Data Dashboard</h1>
+    </header>
+    <main>
+      <section>
+        <label for="user-select">Select a user:</label>
+        <select id="user-select">
+          <option value="" disabled selected>-- Choose a user --</option>
+        </select>
+      </section>
+
+      <section id="results-container" aria-live="polite">
+        <p id="placeholder-text">
+          Please select a user to view their music statistics.
+        </p>
+      </section>
+    </main>
+    <script type="module" src="./script.mjs"></script>
   </body>
 </html>
