@@ -1,11 +1,29 @@
-// This is a placeholder file which shows how you can access functions defined in other files.
-// It can be loaded into index.html.
-// You can delete the contents of the file once you have understood how it works.
-// Note that when running locally, in order to open a web page which uses modules, you must serve the directory over HTTP e.g. with https://www.npmjs.com/package/http-server
-// You can't open the index.html file using a file:// URL.
+import { getUserIDs, getListenEvents, getSong } from "./data.mjs";
 
-import { countUsers } from "./common.mjs";
+document.addEventListener("DOMContentLoaded", () => {
+  const userSelect = document.getElementById("user-select");
+  const resultsContainer = document.getElementById("results-container");
+  const userIDs = getUserIDs();
 
-window.onload = function () {
-  document.querySelector("body").innerText = `There are ${countUsers()} users`;
-};
+  userIDs.forEach((id) => {
+    const option = document.createElement("option");
+    option.value = id;
+    option.textContent = `User ${id}`;
+    userSelect.appendChild(option);
+  });
+
+  userSelect.addEventListener("change", (event) => {
+    const selectedUserId = event.target.value;
+    displayUserStats(selectedUserId);
+  });
+
+  function displayUserStats(userID) {
+    const events = getListenEvents(userID);
+    if (!events || events.length === 0) {
+      resultsContainer.innerHTML =
+        "<p>This user didn't listen to any songs.</p>";
+      return;
+    }
+    resultsContainer.innerHTML = `<p>Data loaded for User ${userID}. Total listens: ${events.length}</p>`;
+  }
+});
